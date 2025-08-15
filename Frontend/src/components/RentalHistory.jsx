@@ -1,15 +1,10 @@
 import React from "react";
 
-/**
- * RentalHistory component
- * - Shows who rented what
- * - Compares return date with today to indicate "Returned" or "Need to return"
- */
 export default function RentalHistory({ rentals }) {
   const today = new Date();
 
   const formatStatus = (returnDate) => {
-    if (!returnDate) return "No return date"; // optional fallback
+    if (!returnDate) return "No return date";
     const returnDay = new Date(returnDate);
     return returnDay < today ? "Returned" : "Need to return";
   };

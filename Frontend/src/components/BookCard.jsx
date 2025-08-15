@@ -1,16 +1,6 @@
 import React from "react";
 
-/**
- * Displays a single book with an availability badge and a Rent button.
- * - If today is past the returnDate, the book becomes available again.
- */
 export default function BookCard({ book, onRent }) {
-  const today = new Date();
-  const isReturned = book.returnDate
-    ? new Date(book.returnDate) < today
-    : false;
-  const canRent = book.available || isReturned;
-
   return (
     <div className="card">
       <div className="flex items-start justify-between">
@@ -21,19 +11,21 @@ export default function BookCard({ book, onRent }) {
             <p className="text-xs mt-1 text-gray-500">{book.genre}</p>
           )}
         </div>
-        <span className={`badge ${canRent ? "badge-green" : "badge-red"}`}>
-          {canRent ? "Available" : "Rented"}
+        <span
+          className={`badge ${book.available ? "badge-green" : "badge-red"}`}
+        >
+          {book.available ? "Available" : "Rented"}
         </span>
       </div>
 
       <div className="mt-4 flex gap-2">
         <button
-          disabled={!canRent}
+          disabled={!book.available}
           onClick={onRent}
           className={`btn ${
-            canRent ? "btn-primary" : "opacity-50 cursor-not-allowed"
+            book.available ? "btn-primary" : "opacity-50 cursor-not-allowed"
           }`}
-          title={canRent ? "Rent this book" : "Currently not available"}
+          title={book.available ? "Rent this book" : "Currently not available"}
         >
           Rent
         </button>
