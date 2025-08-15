@@ -2,37 +2,43 @@ package com.example.Book_Rental_Management_System.Controller;
 
 import com.example.Book_Rental_Management_System.Model.Rental;
 import com.example.Book_Rental_Management_System.Service.RentalService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/rentals")
-@CrossOrigin(origins = "*")
+@RestController // Marks this as a REST controller
+@RequestMapping("/api/rentals") // Base path for rental-related APIs
+@CrossOrigin(origins = "*") // Allow requests from any domain (CORS)
 public class RentalController {
 
-    private final RentalService rentalService;
+    private final RentalService rentalService; // Service for rental logic
 
+    // Constructor injection of RentalService
     public RentalController(RentalService rentalService) {
         this.rentalService = rentalService;
     }
 
-    @PostMapping
-    public Rental createRental(@RequestBody Rental rental) {
-        return rentalService.createRental(rental);
+    @PostMapping // Create a new rental record
+    public ResponseEntity<Rental> createRental(@RequestBody Rental rental) {
+        Rental createdRental = rentalService.createRental(rental);
+        return ResponseEntity.ok(createdRental);
     }
 
-    @PutMapping("/{id}")
-    public Rental updateRental(@PathVariable Long id, @RequestBody Rental rental) {
-        return rentalService.updateRental(id, rental);
+    @PutMapping("/{id}") // Update an existing rental by ID
+    public ResponseEntity<Rental> updateRental(@PathVariable Long id, @RequestBody Rental rental) {
+        Rental updatedRental = rentalService.updateRental(id, rental);
+        return ResponseEntity.ok(updatedRental);
     }
 
-    @GetMapping
-    public List<Rental> getAllRentals() {
-        return rentalService.getAllRentals();
+    @GetMapping // Get all rentals
+    public ResponseEntity<List<Rental>> getAllRentals() {
+        List<Rental> rentals = rentalService.getAllRentals();
+        return ResponseEntity.ok(rentals);
     }
 
-    @GetMapping("/{id}")
-    public Rental getRentalById(@PathVariable Long id) {
-        return rentalService.getRentalById(id);
+    @GetMapping("/{id}") // Get a rental by its ID
+    public ResponseEntity<Rental> getRentalById(@PathVariable Long id) {
+        Rental rental = rentalService.getRentalById(id);
+        return ResponseEntity.ok(rental);
     }
 }
