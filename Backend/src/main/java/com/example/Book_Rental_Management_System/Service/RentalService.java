@@ -8,4 +8,6 @@ public interface RentalService {
     Rental updateRental(Long id, Rental rental);
     List<Rental> getAllRentals();
     Rental getRentalById(Long id);
+
+    void updateBooksAvailability();
 }
