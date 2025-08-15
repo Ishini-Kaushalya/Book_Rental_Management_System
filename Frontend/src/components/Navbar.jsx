@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 /**
  * Top navigation with a big call-to-action button to add a book.
@@ -13,5 +13,5 @@ export default function Navbar({ onAdd }) {
         </button>
       </div>
     </div>
-  );
+  )
 }
