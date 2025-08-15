@@ -2,6 +2,7 @@ package com.example.Book_Rental_Management_System.Controller;
 
 import com.example.Book_Rental_Management_System.Model.Rental;
 import com.example.Book_Rental_Management_System.Service.RentalService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,22 +18,26 @@ public class RentalController {
     }
 
     @PostMapping
-    public Rental createRental(@RequestBody Rental rental) {
-        return rentalService.createRental(rental);
+    public ResponseEntity<Rental> createRental(@RequestBody Rental rental) {
+        Rental createdRental = rentalService.createRental(rental);
+        return ResponseEntity.ok(createdRental);
     }
 
     @PutMapping("/{id}")
-    public Rental updateRental(@PathVariable Long id, @RequestBody Rental rental) {
-        return rentalService.updateRental(id, rental);
+    public ResponseEntity<Rental> updateRental(@PathVariable Long id, @RequestBody Rental rental) {
+        Rental updatedRental = rentalService.updateRental(id, rental);
+        return ResponseEntity.ok(updatedRental);
     }
 
     @GetMapping
-    public List<Rental> getAllRentals() {
-        return rentalService.getAllRentals();
+    public ResponseEntity<List<Rental>> getAllRentals() {
+        List<Rental> rentals = rentalService.getAllRentals();
+        return ResponseEntity.ok(rentals);
     }
 
     @GetMapping("/{id}")
-    public Rental getRentalById(@PathVariable Long id) {
-        return rentalService.getRentalById(id);
+    public ResponseEntity<Rental> getRentalById(@PathVariable Long id) {
+        Rental rental = rentalService.getRentalById(id);
+        return ResponseEntity.ok(rental);
     }
 }
