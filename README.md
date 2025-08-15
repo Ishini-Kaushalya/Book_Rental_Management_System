@@ -4,7 +4,7 @@
 ![Backend Build](https://img.shields.io/badge/backend-SpringBoot-blue)
 ![Frontend Build](https://img.shields.io/badge/frontend-React-green)
 ![Java Version](https://img.shields.io/badge/java-17-orange)
-![Node Version](https://img.shields.io/badge/node-18-brightgreen)
+
 
 A full-stack application for managing books and rentals. Built with **Spring Boot** (backend) and **React.js** (frontend).
 
@@ -39,34 +39,32 @@ A full-stack application for managing books and rentals. Built with **Spring Boo
    
    git clone <repo-url>
    cd Book_Rental_Management_System/backend
-``
 
 2. **Set up MySQL database:**
 
    
    CREATE DATABASE book_rental_db;
-   ```
+  
 
 3. **Configure `application.properties`:**
 
-   
    spring.datasource.url=jdbc:mysql://localhost:3306/book_rental_db
    spring.datasource.username=<your-username>
    spring.datasource.password=<your-password>
    spring.jpa.hibernate.ddl-auto=update
    spring.jpa.show-sql=true
-   ```
+   
 
 4. **Build and run the backend:**
 
    
    mvn clean install
    mvn spring-boot:run
-   ```
+  
 
 5. Backend runs on `http://localhost:8080`.
 
----
+
 
 ### Frontend (React.js)
 
@@ -74,23 +72,23 @@ A full-stack application for managing books and rentals. Built with **Spring Boo
 
    
    cd ../frontend
-   ```
+  
 
 2. Install dependencies:
 
   
    npm install
-   ```
+  
 
 3. Start the development server:
 
    
    npm start
-   ```
+  
 
 4. Frontend runs on `http://localhost:3000`.
 
----
+
 
 ## API Endpoints
 
@@ -134,30 +132,6 @@ A full-stack application for managing books and rentals. Built with **Spring Boo
 * Frontend refresh functionality for books and rentals.
 
 ---
-
-## Project Structure
-
-
-Book_Rental_Management_System/
-│
-├── backend/                # Spring Boot backend
-│   ├── src/main/java/
-│   │   └── com/example/Book_Rental_Management_System/
-│   │       ├── Controller/
-│   │       ├── Model/
-│   │       ├── Repository/
-│   │       └── Service/
-│   ├── pom.xml
-│   └── application.properties
-│
-├── frontend/               # React frontend
-│   ├── src/
-│   │   ├── components/
-│   │   ├── App.js
-│   │   └── index.js
-│   ├── package.json
-│   └── public/
-``
 
 ## Links
 
