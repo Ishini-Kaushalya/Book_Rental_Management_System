@@ -28,14 +28,14 @@ public class Book {
     @Column(name = "available", nullable = false) // Availability column (required)
     private Boolean available = true; // Default is true (available for rent)
 
-    // Getters
+
     public Long getId() { return id; }
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
     public String getGenre() { return genre; }
     public Boolean getAvailable() { return available; }
 
-    // Setters
+
     public void setId(Long id) { this.id = id; }
     public void setTitle(String title) { this.title = title; }
     public void setAuthor(String author) { this.author = author; }
