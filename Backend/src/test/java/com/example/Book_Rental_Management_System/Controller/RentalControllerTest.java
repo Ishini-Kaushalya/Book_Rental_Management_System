@@ -19,19 +19,20 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class) // Enable Mockito annotations
 class RentalControllerTest {
 
     @Mock
-    private RentalService rentalService;
+    private RentalService rentalService; // Mocked service layer
 
     @InjectMocks
-    private RentalController rentalController;
+    private RentalController rentalController; // Controller under test
 
     private Rental rental;
 
     @BeforeEach
     void setUp() {
+        // Initialize a sample rental before each test
         rental = new Rental();
         rental.setId(1L);
         rental.setUserName("Test User");
@@ -43,14 +44,14 @@ class RentalControllerTest {
 
     @Test
     void createRental_ShouldReturnCreatedRental() {
-        when(rentalService.createRental(any(Rental.class))).thenReturn(rental);
+        when(rentalService.createRental(any(Rental.class))).thenReturn(rental); // Mock service
 
-        ResponseEntity<Rental> response = rentalController.createRental(rental);
+        ResponseEntity<Rental> response = rentalController.createRental(rental); // Call controller
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertEquals("Test User", response.getBody().getUserName());
-        verify(rentalService, times(1)).createRental(rental);
+        assertEquals(HttpStatus.OK, response.getStatusCode()); // Verify HTTP status
+        assertNotNull(response.getBody()); // Response should not be null
+        assertEquals("Test User", response.getBody().getUserName()); // Verify name
+        verify(rentalService, times(1)).createRental(rental); // Verify service call
     }
 
     @Test
@@ -73,7 +74,7 @@ class RentalControllerTest {
         ResponseEntity<List<Rental>> response = rentalController.getAllRentals();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(1, response.getBody().size());
+        assertEquals(1, response.getBody().size()); // Verify list size
         verify(rentalService, times(1)).getAllRentals();
     }
 

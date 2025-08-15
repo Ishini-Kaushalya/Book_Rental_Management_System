@@ -20,23 +20,24 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class) // Enable Mockito annotations
 class RentalServiceImplTest {
 
     @Mock
-    private RentalRepository rentalRepository;
+    private RentalRepository rentalRepository; // Mocked repository
 
     @Mock
-    private BookRepository bookRepository;
+    private BookRepository bookRepository; // Mocked repository for book availability
 
     @InjectMocks
-    private RentalServiceImpl rentalService;
+    private RentalServiceImpl rentalService; // Service under test
 
     private Rental rental;
     private Book book;
 
     @BeforeEach
     void setUp() {
+        // Create sample book and rental
         book = new Book();
         book.setId(1L);
         book.setTitle("Test Book");
@@ -63,7 +64,7 @@ class RentalServiceImplTest {
 
         assertNotNull(result);
         assertEquals("Test User", result.getUserName());
-        assertFalse(book.getAvailable()); // Book should be marked as unavailable
+        assertFalse(book.getAvailable()); // Book marked as unavailable
         verify(bookRepository, times(1)).findById(1L);
         verify(rentalRepository, times(1)).save(rental);
         verify(bookRepository, times(1)).save(book);

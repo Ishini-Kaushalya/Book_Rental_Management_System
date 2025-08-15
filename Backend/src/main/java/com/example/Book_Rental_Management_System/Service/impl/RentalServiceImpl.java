@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
-@Service
+@Service // Marks this class as a Spring service
 public class RentalServiceImpl implements RentalService {
 
-    private final RentalRepository rentalRepository;
-    private final BookRepository bookRepository;
+    private final RentalRepository rentalRepository; // Repository for rentals
+    private final BookRepository bookRepository;     // Repository for books
 
+    // Constructor injection
     public RentalServiceImpl(RentalRepository rentalRepository, BookRepository bookRepository) {
         this.rentalRepository = rentalRepository;
         this.bookRepository = bookRepository;
@@ -22,18 +23,26 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public Rental createRental(Rental rental) {
+        // Fetch the book to be rented
         Book book = bookRepository.findById(rental.getBook().getId())
                 .orElseThrow(() -> new RuntimeException("Book not found"));
+
+        // Check availability
         if (!book.getAvailable()) {
             throw new RuntimeException("Book is not available for rental");
         }
+
+        // Mark book as unavailable and save
         book.setAvailable(false);
         bookRepository.save(book);
+
+        // Save the rental record
         return rentalRepository.save(rental);
     }
 
     @Override
     public Rental updateRental(Long id, Rental rental) {
+        // Find existing rental and update fields
         return rentalRepository.findById(id).map(existingRental -> {
             existingRental.setUserName(rental.getUserName());
             existingRental.setUserEmail(rental.getUserEmail());
@@ -47,17 +56,18 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public List<Rental> getAllRentals() {
-        // Update book availability status before returning rentals
+        // Update book availability before returning all rentals
         updateBooksAvailability();
         return rentalRepository.findAll();
     }
 
     @Override
     public Rental getRentalById(Long id) {
+        // Get rental by ID or throw exception if not found
         return rentalRepository.findById(id).orElseThrow(() -> new RuntimeException("Rental not found"));
     }
 
-    // New method to update book availability based on return date
+    // Updates book availability for rentals past their return date
     public void updateBooksAvailability() {
         List<Rental> activeRentals = rentalRepository.findByReturnDateBeforeAndBook_Available(LocalDate.now(), false);
         for (Rental rental : activeRentals) {

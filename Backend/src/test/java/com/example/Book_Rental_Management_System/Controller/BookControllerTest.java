@@ -18,19 +18,20 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class) // Enable Mockito annotations
 class BookControllerTest {
 
     @Mock
-    private BookService bookService;
+    private BookService bookService; // Mocked BookService for controller testing
 
     @InjectMocks
-    private BookController bookController;
+    private BookController bookController; // Controller under test
 
     private Book book;
 
     @BeforeEach
     void setUp() {
+        // Create a sample book before each test
         book = new Book();
         book.setId(1L);
         book.setTitle("Test Book");
@@ -41,14 +42,14 @@ class BookControllerTest {
 
     @Test
     void addBook_ShouldReturnCreatedBook() {
-        when(bookService.addBook(any(Book.class))).thenReturn(book);
+        when(bookService.addBook(any(Book.class))).thenReturn(book); // Mock service call
 
-        ResponseEntity<Book> response = bookController.addBook(book);
+        ResponseEntity<Book> response = bookController.addBook(book); // Call controller method
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertEquals("Test Book", response.getBody().getTitle());
-        verify(bookService, times(1)).addBook(book);
+        assertEquals(HttpStatus.OK, response.getStatusCode()); // Check HTTP status
+        assertNotNull(response.getBody()); // Response body should not be null
+        assertEquals("Test Book", response.getBody().getTitle()); // Check book title
+        verify(bookService, times(1)).addBook(book); // Verify service was called once
     }
 
     @Test
@@ -65,7 +66,7 @@ class BookControllerTest {
 
     @Test
     void deleteBook_ShouldCallServiceDelete() {
-        doNothing().when(bookService).deleteBook(1L);
+        doNothing().when(bookService).deleteBook(1L); // Mock delete action
 
         ResponseEntity<Void> response = bookController.deleteBook(1L);
 
@@ -76,12 +77,12 @@ class BookControllerTest {
     @Test
     void getAllBooks_ShouldReturnAllBooks() {
         List<Book> books = Arrays.asList(book);
-        when(bookService.getAllBooks()).thenReturn(books);
+        when(bookService.getAllBooks()).thenReturn(books); // Mock service call
 
         ResponseEntity<List<Book>> response = bookController.getAllBooks();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(1, response.getBody().size());
+        assertEquals(1, response.getBody().size()); // Check list size
         verify(bookService, times(1)).getAllBooks();
     }
 
