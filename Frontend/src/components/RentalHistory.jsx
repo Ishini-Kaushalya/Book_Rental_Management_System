@@ -1,10 +1,19 @@
-import React from 'react'
+import React from "react";
 
 /**
- * Simple rental history list.
- * - Shows who rented what and whether it was returned.
+ * RentalHistory component
+ * - Shows who rented what
+ * - Compares return date with today to indicate "Returned" or "Need to return"
  */
 export default function RentalHistory({ rentals }) {
+  const today = new Date();
+
+  const formatStatus = (returnDate) => {
+    if (!returnDate) return "No return date"; // optional fallback
+    const returnDay = new Date(returnDate);
+    return returnDay < today ? "Returned" : "Need to return";
+  };
+
   return (
     <div className="card">
       <h3 className="text-lg font-semibold mb-4">Rental History</h3>
@@ -20,14 +29,22 @@ export default function RentalHistory({ rentals }) {
                 <span className="text-gray-500">({r.userEmail})</span>
               </div>
               <div className="text-gray-600">
-                Book Title : {r.book?.title || "Unknown"}
+                Book Title: {r.book?.title || "Unknown"}
               </div>
             </div>
-            <span
-              className={`badge ${r.returnDate ? "badge-green" : "badge-red"}`}
-            >
-              {r.returnDate ? "Returned" : "Ongoing"}
-            </span>
+            {r.returnDate && (
+              <div
+                className={`text-sm ${
+                  new Date(r.returnDate) < today
+                    ? "text-green-600"
+                    : "text-red-600"
+                }`}
+              >
+                {formatStatus(r.returnDate)}{" "}
+                {new Date(r.returnDate) >= today &&
+                  `before ${new Date(r.returnDate).toLocaleDateString()}`}
+              </div>
+            )}
           </div>
         ))}
         {rentals.length === 0 && (
