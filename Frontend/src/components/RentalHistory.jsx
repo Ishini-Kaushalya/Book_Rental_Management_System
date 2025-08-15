@@ -19,12 +19,15 @@ export default function RentalHistory({ rentals }) {
             className="flex items-center justify-between border-b border-gray-100 pb-2"
           >
             <div className="text-sm">
-              <div className="font-medium">
-                {r.userName}{" "}
-                <span className="text-gray-500">({r.userEmail})</span>
-              </div>
+              <div className="font-medium">{r.userName}</div>
               <div className="text-gray-600">
                 Book Title: {r.book?.title || "Unknown"}
+              </div>
+              <div className="text-gray-500">
+                Rented Date:{" "}
+                {r.rentalDate
+                  ? new Date(r.rentalDate).toLocaleDateString()
+                  : "Unknown"}
               </div>
             </div>
             {r.returnDate && (
