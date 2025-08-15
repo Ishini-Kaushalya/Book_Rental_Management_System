@@ -62,9 +62,7 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 
 
-   
-
-5. **Build and run the backend:**
+4. **Build and run the backend:**
 
    
    mvn clean install
@@ -72,7 +70,7 @@ spring.jpa.properties.hibernate.format_sql=true
    mvn spring-boot:run
   
 
-7. Backend runs on `http://localhost:8080`.
+5. Backend runs on `http://localhost:8080`.
 
 
 
