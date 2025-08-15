@@ -10,14 +10,21 @@ export default function RentBookModal({ book, onClose, onSubmit }) {
   const [userPhone, setUserPhone] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     onSubmit({
-      bookId: book.id,
       userName,
       userEmail,
-      userPhone
-    })
-  }
+      userPhone,
+      rentalDate: new Date().toISOString().split("T")[0],
+      returnDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split("T")[0],
+      book: {
+        id: book.id,
+      },
+    });
+  };
+
 
   return (
     <div className="fixed inset-0 bg-black/30 grid place-items-center p-4">
