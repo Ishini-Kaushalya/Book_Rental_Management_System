@@ -47,15 +47,21 @@ A full-stack application for managing books and rentals. Built with **Spring Boo
 
 3. **Configure `application.properties`:**
 
-   spring.datasource.url=jdbc:mysql://localhost:3306/book_rental_db
-   
-   spring.datasource.username=<your-username>
-   
-   spring.datasource.password=<your-password>
-   
-   spring.jpa.hibernate.ddl-auto=update
-   
-   spring.jpa.show-sql=true
+spring.datasource.url=jdbc:mysql://localhost:3306/book_rental_management_system?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+
+spring.datasource.username=root
+
+spring.datasource.password=
+
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+spring.jpa.hibernate.ddl-auto=update
+
+spring.jpa.show-sql=true
+
+spring.jpa.properties.hibernate.format_sql=true
+
+
    
 
 5. **Build and run the backend:**
