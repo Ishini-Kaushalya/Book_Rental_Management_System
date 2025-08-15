@@ -6,6 +6,7 @@ import com.example.Book_Rental_Management_System.Repository.BookRepository;
 import com.example.Book_Rental_Management_System.Repository.RentalRepository;
 import com.example.Book_Rental_Management_System.Service.RentalService;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -46,6 +47,8 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public List<Rental> getAllRentals() {
+        // Update book availability status before returning rentals
+        updateBooksAvailability();
         return rentalRepository.findAll();
     }
 
@@ -53,5 +56,16 @@ public class RentalServiceImpl implements RentalService {
     public Rental getRentalById(Long id) {
         return rentalRepository.findById(id).orElseThrow(() -> new RuntimeException("Rental not found"));
     }
-}
 
+    // New method to update book availability based on return date
+    public void updateBooksAvailability() {
+        List<Rental> activeRentals = rentalRepository.findByReturnDateBeforeAndBook_Available(LocalDate.now(), false);
+        for (Rental rental : activeRentals) {
+            Book book = rental.getBook();
+            if (book != null && !book.getAvailable() && rental.getReturnDate().isBefore(LocalDate.now())) {
+                book.setAvailable(true);
+                bookRepository.save(book);
+            }
+        }
+    }
+}
