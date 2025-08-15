@@ -42,27 +42,31 @@ A full-stack application for managing books and rentals. Built with **Spring Boo
 
 2. **Set up MySQL database:**
 
-   
-   CREATE DATABASE book_rental_db;
+   Database will auto created.
   
 
 3. **Configure `application.properties`:**
 
    spring.datasource.url=jdbc:mysql://localhost:3306/book_rental_db
+   
    spring.datasource.username=<your-username>
+   
    spring.datasource.password=<your-password>
+   
    spring.jpa.hibernate.ddl-auto=update
+   
    spring.jpa.show-sql=true
    
 
-4. **Build and run the backend:**
+5. **Build and run the backend:**
 
    
    mvn clean install
+   
    mvn spring-boot:run
   
 
-5. Backend runs on `http://localhost:8080`.
+7. Backend runs on `http://localhost:8080`.
 
 
 
@@ -120,7 +124,6 @@ A full-stack application for managing books and rentals. Built with **Spring Boo
 * Each book can be rented by only one user at a time.
 * Rentals have a mandatory return date.
 * User information (name, email, phone) is collected during rental.
-* Dates are stored as ISO strings in JSON for frontend communication.
 
 ### Additional Features
 
